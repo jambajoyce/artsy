@@ -15,12 +15,17 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.content.Context;
+import android.content.DialogInterface;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 
 
 public class MainActivity extends Activity {
 	
 	private DrawView drawView;
 	private Dialog currentDialog;
+	private AtomicBoolean dialogIsVisible = new AtomicBoolean();
 	
 	private static final int COLOR_MENU_ID = Menu.FIRST;
 	private static final int WIDTH_MENU_ID = Menu.FIRST + 1;
@@ -91,7 +96,7 @@ public class MainActivity extends Activity {
 	
 	private OnSeekBarChangeListener colorSeekBarChanged = new OnSeekBarChangeListener() {
 		@Override
-		public void onProgessChanged(SeekBar seekBar, int progress, boolean fromUser) {
+		public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 			
 			SeekBar alphaBar = (SeekBar) currentDialog.findViewById(R.id.alphaSeekBar);
 			SeekBar redBar = (SeekBar) currentDialog.findViewById(R.id.redSeekBar);
@@ -100,7 +105,7 @@ public class MainActivity extends Activity {
 			
 			View colorView = (View) currentDialog.findViewById(R.id.colorView);
 			
-			color.setBackgroundColor(Color.argb(alphaBar.getProgress(), 
+			colorView.setBackgroundColor(Color.argb(alphaBar.getProgress(), 
 					redBar.getProgress(), greenBar.getProgress(), blueBar.getProgress()));
 		}
 		
@@ -132,7 +137,7 @@ public class MainActivity extends Activity {
 		}
 	};
 	
-	private void showLWChoose() {
+	private void showLWChooser() {
 		
 		currentDialog = new Dialog(this);
 		currentDialog.setContentView(R.layout.width);
@@ -164,7 +169,7 @@ public class MainActivity extends Activity {
 			p.setStrokeWidth(progress);
 			
 			bitmap.eraseColor(Color.WHITE);
-			canvas.drawLine(30, 50, 370, 50, p)
+			canvas.drawLine(30, 50, 370, 50, p);
 			
 			widthImageView.setImageBitmap(bitmap);
 		}
