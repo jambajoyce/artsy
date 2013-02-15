@@ -70,7 +70,8 @@ public class MainActivity extends Activity {
 			drawView.setDrawingColor(Color.WHITE);
 			return true;
 		case CLEAR_MENU_ID:
-			drawView.clear();
+			showClear();
+			//drawView.clear();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -206,4 +207,42 @@ public class MainActivity extends Activity {
 			currentDialog = null;
 			}
 		};
+		
+
+		private void showClear() {
+			
+			currentDialog = new Dialog(this);
+			currentDialog.setContentView(R.layout.clear);
+			currentDialog.setCancelable(true);
+			
+			Button yesButton = (Button) currentDialog.findViewById(R.id.buttonYes);
+			yesButton.setOnClickListener(clearYesButtonListener);
+			
+			Button noButton = (Button) currentDialog.findViewById(R.id.buttonNo);
+			noButton.setOnClickListener(clearNoButtonListener);
+			
+			dialogIsVisible.set(true);
+			currentDialog.show();
+		}
+		
+		private OnClickListener clearYesButtonListener = new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				drawView.clear();
+				dialogIsVisible.set(false);
+				currentDialog.dismiss();
+				currentDialog = null;
+				}
+			};
+		
+		private OnClickListener clearNoButtonListener = new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				
+				dialogIsVisible.set(false);
+				currentDialog.dismiss();
+				currentDialog = null;
+				}
+			};
+		
 }
