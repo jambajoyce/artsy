@@ -27,18 +27,16 @@ public class DrawView extends View {
 	public DrawView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		
-		//CHECK THIS
 		paintScreen = new Paint();
 		
 		paintLine = new Paint();
 		paintLine.setAntiAlias(true);
 		paintLine.setColor(Color.GREEN);
 		paintLine.setStyle(Paint.Style.STROKE);
-		paintLine.setStrokeWidth(5);
+		paintLine.setStrokeWidth(6);
 		paintLine.setStrokeCap(Paint.Cap.ROUND);
 		pathMap = new HashMap<Integer, Path>();
 		previousPointMap = new HashMap<Integer, Point>();
-		
 	}
 	
 	@Override
@@ -111,12 +109,12 @@ public class DrawView extends View {
 			pathMap.put(lineID, path);
 			point = new Point();
 			previousPointMap.put(lineID, point);
-			
-			path.moveTo(x, y);
-			point.x = (int) x;
-			point.y = (int) y;
-			
 		}
+			
+		path.moveTo(x, y);
+		point.x = (int) x;
+		point.y = (int) y;
+			
 	}
 	
 	private void touchMoved(MotionEvent e) {
