@@ -35,9 +35,9 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.main);
 
-		drawView = (DrawView) findViewById(R.id.DrawView);
+		drawView = (DrawView) findViewById(R.id.drawView);
 		
 	}
 
@@ -92,6 +92,17 @@ public class MainActivity extends Activity {
 		greenBar.setOnSeekBarChangeListener(colorSeekBarChanged);
 		blueBar.setOnSeekBarChangeListener(colorSeekBarChanged);
 		
+		final int color = drawView.getDrawingColor();
+		alphaBar.setProgress(Color.alpha(color));
+		redBar.setProgress(Color.red(color));
+		greenBar.setProgress(Color.green(color));
+		blueBar.setProgress(Color.blue(color));
+		
+		Button setColor = (Button) currentDialog.findViewById(R.id.setColorButton);
+		setColor.setOnClickListener(setColorButtonListener);
+		
+		dialogIsVisible.set(true);
+		currentDialog.show();
 	}
 	
 	private OnSeekBarChangeListener colorSeekBarChanged = new OnSeekBarChangeListener() {
@@ -119,7 +130,7 @@ public class MainActivity extends Activity {
 		
 	};
 	
-	private OnClickListener setColorButtonList = new OnClickListener() {
+	private OnClickListener setColorButtonListener = new OnClickListener() {
 		
 		@Override
 		public void onClick(View view) {
